@@ -870,15 +870,21 @@ function patchMethod(target, name, patchFn) {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var callAndReturnFirstParam = function (fn) {
+    return function (self, args) {
+        fn(self, args);
+        return self;
+    };
+};
 // For EventEmitter
 var EE_ADD_LISTENER = 'addListener';
 var EE_PREPEND_LISTENER = 'prependListener';
 var EE_REMOVE_LISTENER = 'removeListener';
 var EE_LISTENERS = 'listeners';
 var EE_ON = 'on';
-var zoneAwareAddListener$1 = makeZoneAwareAddListener(EE_ADD_LISTENER, EE_REMOVE_LISTENER, false, true);
-var zoneAwarePrependListener = makeZoneAwareAddListener(EE_PREPEND_LISTENER, EE_REMOVE_LISTENER, false, true);
-var zoneAwareRemoveListener$1 = makeZoneAwareRemoveListener(EE_REMOVE_LISTENER, false);
+var zoneAwareAddListener$1 = callAndReturnFirstParam(makeZoneAwareAddListener(EE_ADD_LISTENER, EE_REMOVE_LISTENER, false, true));
+var zoneAwarePrependListener = callAndReturnFirstParam(makeZoneAwareAddListener(EE_PREPEND_LISTENER, EE_REMOVE_LISTENER, false, true));
+var zoneAwareRemoveListener$1 = callAndReturnFirstParam(makeZoneAwareRemoveListener(EE_REMOVE_LISTENER, false));
 var zoneAwareListeners = makeZoneAwareListeners(EE_LISTENERS);
 function patchEventEmitterMethods(obj) {
     if (obj && obj.addListener) {

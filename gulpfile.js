@@ -42,7 +42,7 @@ function generateScript(inFile, outFile, minify, callback) {
 }
 
 function tsc(config, cb) {
-  spawn('./node_modules/.bin/tsc', ['-p', config], {stdio: 'inherit'})
+  spawn('D:/git/zone.js/node_modules/.bin/tsc.cmd', ['-p', config], {stdio: 'inherit'})
       .on('close', function(exitCode) {
         if (exitCode) {
           var err = new Error('TypeScript compiler failed');
