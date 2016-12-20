@@ -7,6 +7,11 @@
  */
 
 describe('ZoneAwareError', () => {
+
+  it('should support being created without new operator', () => {
+    Error.apply(undefined, ["message"]);
+  });
+
   // If the environment does not supports stack rewrites, then these tests will fail
   // and there is no point in running them.
   if (!Error['stackRewrite']) return;

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -1316,6 +1317,11 @@ const Zone: ZoneType = (function(global: any) {
    * adds zone information to it.
    */
   function ZoneAwareError() {
+    // Make sure the function is called as a constructor
+    // if(!(this instanceof ZoneAwareError)) {
+    //     return new Error();
+    // }
+
     // Create an Error.
     let error: Error = NativeError.apply(this, arguments);
     this.message = error.message;
